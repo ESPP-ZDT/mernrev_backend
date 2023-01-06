@@ -100,8 +100,7 @@ const likeNote = asyncHandler(async (req, res) => {
 
 //this one also stinks
 const rateNote = asyncHandler(async (req, res) => {
-  const noteId = req.params.id;
-  const note = await Note.findById(noteId);
+  const note = await Note.findById(req.params.id);
   if (!note) return res.status(404).send("Note not found");
 
   const rating = req.body.rating;
