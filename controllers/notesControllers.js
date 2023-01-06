@@ -79,10 +79,9 @@ const deleteNote = asyncHandler(async (req, res) => {
 
 const likeNote = asyncHandler(async (req, res) => {
   try {
-    const noteId = req.params.id;
-    const note = await Note.findById(noteId);
+    const note = await Note.findById(req.params.id);
     if (!note) return res.status(404).send("Note not found");
-
+    //cos tu smierdzi w tym kontrolerze
     const userId = req.body.userId;
     if (note.likes.includes(userId)) {
       // If the user has already liked the note, remove their ObjectId from the likes array
@@ -99,6 +98,7 @@ const likeNote = asyncHandler(async (req, res) => {
   }
 });
 
+//this one also stinks
 const rateNote = asyncHandler(async (req, res) => {
   const noteId = req.params.id;
   const note = await Note.findById(noteId);

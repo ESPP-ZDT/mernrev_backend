@@ -7,6 +7,8 @@ const userRoutes = require("./routes/userRoutes");
 const noteRoutes = require("./routes/noteRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
+const ratingRoutes = require('./routes/ratingRoutes');
+
 
 const app = express();
 dotenv.config();
@@ -23,6 +25,8 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/notes", noteRoutes);
 app.use("/api/comments", commentRoutes);
+app.use('/api/rating', ratingRoutes);
+
 
 //app.get("/api/notes", cors(), (req, res) => {
 //res.json(notes);
