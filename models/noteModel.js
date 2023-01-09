@@ -23,7 +23,12 @@ const noteSchema = mongoose.Schema(
     meanRating: {
       type: Number,
       default: 0
-    }
+    },
+    pic: {
+      type: String,
+      required: false,
+      
+    },
   },
   {
     timestamps: true,

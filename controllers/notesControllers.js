@@ -12,14 +12,14 @@ const getNotes = asyncHandler(async (req, res) => {
 });
 
 const createNote = asyncHandler(async (req, res) => {
-  const { title, content, category } = req.body;
+  const { title, content, category, pic } = req.body;
 
   if (!title || !content || !category) {
     res.status(400);
     throw new Error("Please Fill all the feilds");
     return;
   } else {
-    const note = new Note({ user: req.user._id, title, content, category });
+    const note = new Note({ user: req.user._id, title, content, category, pic });
 
     const createdNote = await note.save();
 
@@ -38,7 +38,7 @@ const getNoteById = asyncHandler(async (req, res) => {
 });
 
 const updateNote = asyncHandler(async (req, res) => {
-  const { title, content, category } = req.body;
+  const { title, content, category, pic } = req.body;
 
   const note = await Note.findById(req.params.id);
 
@@ -51,6 +51,7 @@ const updateNote = asyncHandler(async (req, res) => {
     note.title = title;
     note.content = content;
     note.category = category;
+    note.pic = pic;
 
     const updatedNote = await note.save();
     res.json(updatedNote);
@@ -100,7 +101,8 @@ const likeNote = asyncHandler(async (req, res) => {
 
 //this one also stinks
 const rateNote = asyncHandler(async (req, res) => {
-  const note = await Note.findById(req.params.id);
+  const noteId = req.params.id;
+  const note = await Note.findById(noteId);
   if (!note) return res.status(404).send("Note not found");
 
   const rating = req.body.rating;
